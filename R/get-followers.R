@@ -50,13 +50,13 @@ getFollowers <- function(screen_name=NULL, oauth, cursor=-1, user_id=NULL, verbo
   ## while rate limit is 0, open a new one
   limit <- getLimitFollowers(my_oauth)
   if (verbose) {message(limit, " API calls left")}
-  while (limit==0){
+  while (limit!=0){
     my_oauth <- getOAuth(oauth, verbose=verbose)
     Sys.sleep(sleep)
-    # sleep for 5 minutes if limit rate is less than 100
+    # sleep for 15 minutes if limit rate is 0
     rate.limit <- getLimitRate(my_oauth)
-    if (rate.limit<100){
-      Sys.sleep(300)
+    if (rate.limit==0){
+      Sys.sleep(900)
     }
     limit <- getLimitFollowers(my_oauth)
     if (verbose){message(limit, " API calls left")}
