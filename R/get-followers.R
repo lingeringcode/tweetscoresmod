@@ -56,6 +56,7 @@ getFollowers <- function(screen_name=NULL, oauth, cursor=-1, user_id=NULL, verbo
     # sleep for 15 minutes if limit rate is less than 100
     rate.limit <- getLimitRate(my_oauth)
     if (limit==0){
+      print("Sleeping for 15 mins.")
       Sys.sleep(900)
     }
     limit <- getLimitFollowers(my_oauth)
@@ -115,6 +116,7 @@ getFollowers <- function(screen_name=NULL, oauth, cursor=-1, user_id=NULL, verbo
       # sleep for 15 minutes if limit rate is 0
       rate.limit <- getLimitRate(my_oauth)
       if (limit==0){
+        print("Sleeping for 15 mins.")
         Sys.sleep(900)
       }
       limit <- getLimitFollowers(my_oauth)
