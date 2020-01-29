@@ -122,10 +122,10 @@ getFollowers <- function(screen_name=NULL, oauth, cursor=-1, user_id=NULL, verbo
       limit <- getLimitFollowers(my_oauth)
       if (verbose){message(limit, " API calls left")}
     }
-    if ((is.null(file)) && (count > 20000)) return(followers)
+    if ((is.null(file)) && (length(followers) > 20000)) return(followers)
   }
   # If just followers var && accrued 50000 followers, return
-  if ((is.null(file)) && (count > 20000)) return(followers)
+  if ((is.null(file)) && (length(followers) > 20000)) return(followers)
   # If in file, close it
   if (!is.null(file)) close(con)
 }
