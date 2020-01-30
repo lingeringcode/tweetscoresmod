@@ -71,7 +71,7 @@ getFollowers <- function(screen_name=NULL, oauth, cursor=-1, user_id=NULL, verbo
     count <- 0
   }
   ## while there's more data to download...
-  if (length(followers) < 20000){
+  while (length(followers)<20000){
     ## making API call
     if (!is.null(screen_name)){
       params <- list(screen_name = screen_name, cursor = cursor, stringify_ids="true")
@@ -123,9 +123,7 @@ getFollowers <- function(screen_name=NULL, oauth, cursor=-1, user_id=NULL, verbo
       if (verbose){message(limit, " API calls left")}
     }
   }
-  # If just followers var, return
   if (is.null(file)) return(followers)
-  # If in file, close it
   if (!is.null(file)) close(con)
 }
 
