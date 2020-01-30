@@ -71,7 +71,7 @@ getFollowers <- function(screen_name=NULL, oauth, cursor=-1, user_id=NULL, verbo
     count <- 0
   }
   ## while there's more data to download...
-  while (length(followers)<20000){
+  while (cursor!=0){
     ## making API call
     if (!is.null(screen_name)){
       params <- list(screen_name = screen_name, cursor = cursor, stringify_ids="true")
