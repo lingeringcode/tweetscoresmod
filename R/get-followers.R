@@ -71,7 +71,7 @@ getFollowers <- function(screen_name=NULL, oauth, cursor=-1, user_id=NULL, verbo
     count <- 0
   }
   ## while there's more data to download...
-  while (cursor!=0){
+  if (length(followers) < 20000){
     ## making API call
     if (!is.null(screen_name)){
       params <- list(screen_name = screen_name, cursor = cursor, stringify_ids="true")
@@ -110,7 +110,7 @@ getFollowers <- function(screen_name=NULL, oauth, cursor=-1, user_id=NULL, verbo
 
     ## changing oauth token if we hit the limit
     if (verbose){message(limit, " API calls left")}
-    while (limit==0){
+    if (length(followers) < 20000){
       my_oauth <- getOAuth(oauth, verbose=verbose)
       Sys.sleep(sleep)
       # sleep for 15 minutes if limit rate is 0
@@ -122,10 +122,9 @@ getFollowers <- function(screen_name=NULL, oauth, cursor=-1, user_id=NULL, verbo
       limit <- getLimitFollowers(my_oauth)
       if (verbose){message(limit, " API calls left")}
     }
-    if ((is.null(file)) && (length(followers) > 20000)) return(followers)
   }
-  # If just followers var && accrued 50000 followers, return
-  if ((is.null(file)) && (length(followers) > 20000)) return(followers)
+  # If just followers var, return
+  if (is.null(file)) return(followers)
   # If in file, close it
   if (!is.null(file)) close(con)
 }
